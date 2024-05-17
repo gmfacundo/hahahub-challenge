@@ -1,2 +1,2 @@
-# hahaub-challenge
+# hahahub-challenge
 Next.Js Greencode Challenge
