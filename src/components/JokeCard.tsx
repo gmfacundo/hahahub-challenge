@@ -8,8 +8,22 @@ import {
   Button,
   Typography,
 } from '@mui/material';
+import { fetchJoke } from '../utils/api'; // Importar la función de utilidad
 
 export default function JokeCard() {
+  const [joke, setJoke] = useState('');
+
+  useEffect(() => {
+    const fetchJokeAndSetState = async () => {
+      const joke = await fetchJoke();
+      if (joke) {
+        setJoke(joke);
+      }
+    };
+
+    fetchJokeAndSetState();
+  }, []);
+
   return (
     <Card
       sx={{
@@ -19,7 +33,7 @@ export default function JokeCard() {
         borderRadius: '8px',
       }}>
       <CardContent>
-        <Typography variant='h6'>TBD</Typography>
+        <Typography variant='h6'>{joke}</Typography>
       </CardContent>
       <CardActions>
         <Button variant='contained' color='primary'>
