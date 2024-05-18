@@ -1,4 +1,4 @@
-export async function fetchJoke() {
+export async function fetchJoke(): Promise<string | null> {
   const headers = { headers: { Accept: 'application/json' } };
 
   try {

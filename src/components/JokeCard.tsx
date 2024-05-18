@@ -1,28 +1,19 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import {
   Card,
   CardContent,
   CardActions,
   Button,
   Typography,
+  Skeleton,
 } from '@mui/material';
-import { fetchJoke } from '../utils/api'; // Importar la función de utilidad
+import { useJoke } from '../hooks/useJoke';
+import { JokeHookReturn } from '@/types/HookReturn';
 
 export default function JokeCard() {
-  const [joke, setJoke] = useState('');
-
-  useEffect(() => {
-    const fetchJokeAndSetState = async () => {
-      const joke = await fetchJoke();
-      if (joke) {
-        setJoke(joke);
-      }
-    };
-
-    fetchJokeAndSetState();
-  }, []);
+  const { joke, isLoading, error }: JokeHookReturn = useJoke();
 
   return (
     <Card
@@ -33,7 +24,15 @@ export default function JokeCard() {
         borderRadius: '8px',
       }}>
       <CardContent>
-        <Typography variant='h6'>{joke}</Typography>
+        {error ? (
+          <Typography variant='body1' color='error'>
+            Error: {error.message}
+          </Typography>
+        ) : isLoading ? (
+          <Skeleton variant='text' width={200} height={40} />
+        ) : (
+          <Typography variant='h6'>{joke}</Typography>
+        )}
       </CardContent>
       <CardActions>
         <Button variant='contained' color='primary'>
