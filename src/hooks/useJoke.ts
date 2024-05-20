@@ -5,6 +5,7 @@ import { JokeHookReturn } from '@/types/HookReturn';
 import ApiResponse from '@/interfaces/ResponseInterface';
 import { useAppContext } from '@/hooks/useAppContext';
 import { isLiked } from '@/utils/helpers';
+import { useSearchParams } from 'next/navigation';
 
 type Joke = ApiResponse;
 type Loading = boolean;
@@ -20,11 +21,9 @@ export function useJoke(): JokeHookReturn {
   const [isLoading, setIsLoading] = useState<Loading>(true);
   const [error, setError] = useState<ApiError | null>(null);
   const { likedJokes } = useAppContext();
+  const jokeId: string | null | undefined = useSearchParams()?.get('joke');
 
   useEffect(() => {
-    const urlSerachParams = new URLSearchParams(window.location.search);
-    const jokeId: string | null = urlSerachParams.get('joke');
-
     const fetchJokeAndSetState = async () => {
       setIsLoading(true);
       setError(null);
@@ -46,7 +45,7 @@ export function useJoke(): JokeHookReturn {
     };
 
     fetchJokeAndSetState();
-  }, []);
+  }, [jokeId]);
 
   return { joke, isLoading, error };
 }

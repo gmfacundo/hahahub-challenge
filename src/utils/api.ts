@@ -1,7 +1,7 @@
 import ApiResponse from '@/interfaces/ResponseInterface';
 
 export async function fetchJoke(
-  jokeId: string | null
+  jokeId: string | null | undefined
 ): Promise<ApiResponse | null> {
   const headers = { headers: { Accept: 'application/json' } };
 
