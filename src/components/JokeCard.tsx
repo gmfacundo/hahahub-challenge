@@ -22,20 +22,17 @@ export default function JokeCard() {
   const { likedJokes, setLikedJokes } = useAppContext();
 
   const handleLike = () => {
-    setLikedJokes((prev) => {
-      console.log(prev);
-      let updatedJokes: ContextInterface[];
-      if (!prev) {
-        updatedJokes = [joke];
-      } else {
-        updatedJokes = isLiked(prev, joke.id)
-          ? prev!.filter((liked) => liked.id !== joke.id)
-          : [...prev!, joke];
-      }
-      console.log(updatedJokes);
-      localStorage.setItem('jokes', JSON.stringify(updatedJokes));
-      return updatedJokes;
-    });
+    let updatedJokes: ContextInterface[];
+
+    if (!likedJokes) {
+      updatedJokes = [joke];
+    } else {
+      updatedJokes = isLiked(likedJokes, joke.id)
+        ? likedJokes!.filter((liked) => liked.id !== joke.id)
+        : [...likedJokes!, joke];
+    }
+
+    setLikedJokes(updatedJokes);
   };
 
   return (

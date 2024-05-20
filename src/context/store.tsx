@@ -9,9 +9,14 @@ export const AppContext = createContext<AppContextType | undefined>(
 );
 
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
-  const [likedJokes, setLikedJokes] = useState<ContextInterface[] | null>(
-    null
-  );
+  const [likedJokes, setLikedJokesAux] = useState<
+    ContextInterface[] | null
+  >(null);
+
+  const setLikedJokes = (jokes: ContextInterface[]) => {
+    setLikedJokesAux(jokes);
+    localStorage.setItem('jokes', JSON.stringify(jokes));
+  };
 
   useEffect(() => {
     const storedJokes = localStorage.getItem('jokes');
