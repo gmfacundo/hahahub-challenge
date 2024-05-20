@@ -7,7 +7,6 @@ import {
   Snackbar,
   SnackbarOrigin,
   Typography,
-  useScrollTrigger,
 } from '@mui/material';
 import { useTheme } from '@mui/material';
 import Header from '@/components/Header';
@@ -19,6 +18,7 @@ import { useState } from 'react';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import Fade from '@mui/material/Fade';
+import { Countdown } from '@/components/Countdown';
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction='up' />;
@@ -45,6 +45,7 @@ export default function MainPage() {
 
   const { vertical, horizontal, open } = openAlert;
   const theme = useTheme();
+  const path = new URL(window.location.href);
 
   const handleClick =
     (
@@ -55,7 +56,7 @@ export default function MainPage() {
       >
     ) =>
     () => {
-      const basePath = new URL(window.location.href).origin;
+      const basePath = path.origin;
       const url = `${basePath}/?joke=${curJokeId}`;
       navigator.clipboard.writeText(url);
 
@@ -122,6 +123,8 @@ export default function MainPage() {
             </span>
           </Typography>
         </Box>
+
+        {!path.search ? <Countdown /> : null}
         <Snackbar
           open={open}
           anchorOrigin={{ vertical, horizontal }}
