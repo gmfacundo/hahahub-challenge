@@ -15,6 +15,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { useAppContext } from '@/hooks/useAppContext';
 import { isLiked } from '@/utils/helpers';
+import ContextInterface from '@/interfaces/ContextInterface';
 
 export default function JokeCard() {
   const { joke, isLoading, error }: JokeHookReturn = useJoke();
@@ -22,12 +23,16 @@ export default function JokeCard() {
 
   const handleLike = () => {
     setLikedJokes((prev) => {
+      console.log(prev);
+      let updatedJokes: ContextInterface[];
       if (!prev) {
-        return [joke];
+        updatedJokes = [joke];
+      } else {
+        updatedJokes = isLiked(prev, joke.id)
+          ? prev!.filter((liked) => liked.id !== joke.id)
+          : [...prev!, joke];
       }
-      const updatedJokes = isLiked(prev, joke.id)
-        ? prev.filter((liked) => liked.id !== joke.id)
-        : [...prev, joke];
+      console.log(updatedJokes);
       localStorage.setItem('jokes', JSON.stringify(updatedJokes));
       return updatedJokes;
     });
