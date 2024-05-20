@@ -8,4 +8,6 @@ export type AppContextType = {
   setLikedJokes: SetLikedJokes;
   curJokeId: string;
   setCurJokeId: (curJokeId: string) => void;
+  fetchNewJoke: boolean;
+  setFetchNewJoke: React.Dispatch<React.SetStateAction<boolean>>;
 };

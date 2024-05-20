@@ -20,7 +20,8 @@ export function useJoke(): JokeHookReturn {
   const [joke, setJoke] = useState<Joke>(initialJoke);
   const [isLoading, setIsLoading] = useState<Loading>(true);
   const [error, setError] = useState<ApiError | null>(null);
-  const { likedJokes, setCurJokeId } = useAppContext();
+  const { likedJokes, setCurJokeId, fetchNewJoke, setFetchNewJoke } =
+    useAppContext();
   const jokeId: string | null | undefined = useSearchParams()?.get('joke');
 
   useEffect(() => {
@@ -46,8 +47,10 @@ export function useJoke(): JokeHookReturn {
       }
     };
 
-    fetchJokeAndSetState();
-  }, [jokeId]);
+    if (fetchNewJoke) fetchJokeAndSetState();
+
+    setFetchNewJoke(false);
+  }, [jokeId, fetchNewJoke]);
 
   return { joke, isLoading, error };
 }

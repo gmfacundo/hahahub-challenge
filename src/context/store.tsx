@@ -13,6 +13,7 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
     ContextInterface[] | null
   >(null);
   const [curJokeId, setCurJokeId] = useState<string>('');
+  const [fetchNewJoke, setFetchNewJoke] = useState<boolean>(true);
 
   const setLikedJokes = (
     jokes?: ContextInterface[],
@@ -32,7 +33,14 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
 
   return (
     <AppContext.Provider
-      value={{ likedJokes, setLikedJokes, curJokeId, setCurJokeId }}>
+      value={{
+        likedJokes,
+        setLikedJokes,
+        curJokeId,
+        setCurJokeId,
+        fetchNewJoke,
+        setFetchNewJoke,
+      }}>
       {children}
     </AppContext.Provider>
   );
