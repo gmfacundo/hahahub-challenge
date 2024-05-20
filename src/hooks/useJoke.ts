@@ -20,7 +20,7 @@ export function useJoke(): JokeHookReturn {
   const [joke, setJoke] = useState<Joke>(initialJoke);
   const [isLoading, setIsLoading] = useState<Loading>(true);
   const [error, setError] = useState<ApiError | null>(null);
-  const { likedJokes } = useAppContext();
+  const { likedJokes, setCurJokeId } = useAppContext();
   const jokeId: string | null | undefined = useSearchParams()?.get('joke');
 
   useEffect(() => {
@@ -31,11 +31,13 @@ export function useJoke(): JokeHookReturn {
       if (isLiked(likedJokes, jokeId)) {
         joke = likedJokes!.find((joke) => joke.id === jokeId) as Joke;
         setJoke(joke);
+        setCurJokeId(joke.id);
         setIsLoading(false);
       } else {
         try {
           joke = await fetchJoke(jokeId);
           setJoke(joke || initialJoke);
+          setCurJokeId(joke!.id);
         } catch (error) {
           setError(error as ApiError);
         } finally {

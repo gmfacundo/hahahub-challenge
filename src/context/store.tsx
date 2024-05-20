@@ -12,9 +12,14 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
   const [likedJokes, setLikedJokesAux] = useState<
     ContextInterface[] | null
   >(null);
+  const [curJokeId, setCurJokeId] = useState<string>('');
 
-  const setLikedJokes = (jokes: ContextInterface[]) => {
-    setLikedJokesAux(jokes);
+  const setLikedJokes = (
+    jokes?: ContextInterface[],
+    curJokeId?: string
+  ) => {
+    jokes && setLikedJokesAux(jokes);
+    curJokeId && setCurJokeId(curJokeId);
     localStorage.setItem('jokes', JSON.stringify(jokes));
   };
 
@@ -26,7 +31,8 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ likedJokes, setLikedJokes }}>
+    <AppContext.Provider
+      value={{ likedJokes, setLikedJokes, curJokeId, setCurJokeId }}>
       {children}
     </AppContext.Provider>
   );
