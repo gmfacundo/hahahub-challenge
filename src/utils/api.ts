@@ -1,9 +1,9 @@
 import ApiResponse from '@/interfaces/ResponseInterface';
 
-export async function fetchJoke(): Promise<ApiResponse | null> {
+export async function fetchJoke(
+  jokeId: string | null
+): Promise<ApiResponse | null> {
   const headers = { headers: { Accept: 'application/json' } };
-  const urlSerachParams = new URLSearchParams(window.location.search);
-  const jokeId = urlSerachParams.get('joke');
 
   try {
     const response = await fetch(
