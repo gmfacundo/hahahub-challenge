@@ -1,6 +1,5 @@
 'use client';
 
-import ContextInterface from '@/interfaces/ContextInterface';
 import {
   createContext,
   useState,
@@ -8,13 +7,8 @@ import {
   useEffect,
   ReactNode,
 } from 'react';
-
-type AppContextType = {
-  likedJokes: ContextInterface[] | null;
-  setLikedJokes: React.Dispatch<
-    React.SetStateAction<ContextInterface[] | null>
-  >;
-};
+import ContextInterface from '@/interfaces/ContextInterface';
+import { AppContextType } from './types/Context';
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
