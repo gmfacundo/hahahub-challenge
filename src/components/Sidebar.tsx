@@ -2,12 +2,20 @@
 
 import { Drawer, IconButton, Paper, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AppContextType } from '@/context/types/Context';
+import {
+  LikedJokes,
+  SetLikedJokes,
+} from '@/context/types/Context';
 import ContextInterface from '@/interfaces/ContextInterface';
 import { useRouter } from 'next/navigation';
 
-export const Sidebar = (props: AppContextType) => {
-  const { likedJokes, setLikedJokes } = props;
+export const Sidebar = ({
+  likedJokes,
+  setLikedJokes,
+}: {
+  likedJokes: LikedJokes;
+  setLikedJokes: SetLikedJokes;
+}) => {
   const router = useRouter();
 
   const handleDelete = (
@@ -38,6 +46,8 @@ export const Sidebar = (props: AppContextType) => {
           backgroundColor: '#F97242',
           borderLeft: '1px solid #8F3C1E',
           padding: '5px',
+          boxShadow: '-10px 0px 10px -4px rgba(0,0,0,0.32)',
+          WebkitBoxShadow: '-10px 0px 10px -4px rgba(0,0,0,0.32)',
         },
       }}
       variant='persistent'
@@ -51,9 +61,10 @@ export const Sidebar = (props: AppContextType) => {
             style={{
               cursor: 'pointer',
               position: 'relative',
+              backgroundColor: '#FECCA7',
             }}
             onClick={() => handleClick(joke.id)}>
-            <Typography variant='body2'>{joke.joke}</Typography>
+            <Typography>{joke.joke}</Typography>
             <IconButton
               onClick={(e) => handleDelete(e, joke.id)}
               style={{
