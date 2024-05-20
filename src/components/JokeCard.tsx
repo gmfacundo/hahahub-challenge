@@ -1,19 +1,37 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
-  CardActions,
-  Button,
   Typography,
   Skeleton,
+  IconButton,
+  Box,
 } from '@mui/material';
 import { useJoke } from '../hooks/useJoke';
 import { JokeHookReturn } from '@/types/HookReturn';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import { useAppContext } from '@/context/store';
 
 export default function JokeCard() {
   const { joke, isLoading, error }: JokeHookReturn = useJoke();
+  const { likedJokes, setLikedJokes } = useAppContext();
+
+  const handleLike = () => {
+    setLikedJokes((prev) => {
+      if (!prev) {
+        return [joke];
+      }
+      const isLiked = prev.some((liked) => liked.id === joke.id);
+      const updatedJokes = isLiked
+        ? prev.filter((liked) => liked.id !== joke.id)
+        : [...prev, joke];
+      localStorage.setItem('jokes', JSON.stringify(updatedJokes));
+      return updatedJokes;
+    });
+  };
 
   return (
     <Card
@@ -31,17 +49,30 @@ export default function JokeCard() {
         ) : isLoading ? (
           <Skeleton variant='text' width={200} height={40} />
         ) : (
-          <Typography variant='h6'>{joke}</Typography>
+          <Box paddingRight='4rem'>
+            <Typography variant='h6'>{joke.joke}</Typography>
+            <IconButton
+              onClick={handleLike}
+              style={{
+                position: 'absolute',
+                top: '.5rem',
+                right: '.5rem',
+              }}>
+              {likedJokes?.some((liked) => liked.id === joke.id) ? (
+                <FavoriteOutlinedIcon
+                  fontSize='large'
+                  style={{ color: '#F97242' }}
+                />
+              ) : (
+                <FavoriteBorderOutlinedIcon
+                  fontSize='large'
+                  style={{ color: '#F97242' }}
+                />
+              )}
+            </IconButton>
+          </Box>
         )}
       </CardContent>
-      <CardActions>
-        <Button variant='contained' color='primary'>
-          Share
-        </Button>
-        <Button variant='outlined' color='secondary'>
-          Like
-        </Button>
-      </CardActions>
     </Card>
   );
 }
