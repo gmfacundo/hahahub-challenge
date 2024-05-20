@@ -1,16 +1,12 @@
 'use client';
 
-import {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  ReactNode,
-} from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 import ContextInterface from '@/interfaces/ContextInterface';
 import { AppContextType } from './types/Context';
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
+export const AppContext = createContext<AppContextType | undefined>(
+  undefined
+);
 
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
   const [likedJokes, setLikedJokes] = useState<ContextInterface[] | null>(
@@ -29,12 +25,4 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
       {children}
     </AppContext.Provider>
   );
-};
-
-export const useAppContext = (): AppContextType => {
-  const context = useContext(AppContext);
-  if (context === undefined) {
-    throw new Error('useAppContext must be used within an AppWrapper');
-  }
-  return context;
 };

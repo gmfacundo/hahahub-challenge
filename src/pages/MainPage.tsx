@@ -4,7 +4,7 @@ import { Container, Drawer, Paper } from '@mui/material';
 import Header from '@/components/Header';
 import JokeCard from '@/components/JokeCard';
 import './styles.css';
-import { useAppContext } from '@/context/store';
+import { useAppContext } from '@/hooks/useAppContext';
 
 export default function MainPage() {
   const { likedJokes } = useAppContext();
