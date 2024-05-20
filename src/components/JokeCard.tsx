@@ -13,7 +13,8 @@ import { useJoke } from '../hooks/useJoke';
 import { JokeHookReturn } from '@/types/HookReturn';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { useAppContext } from '@/context/store';
+import { useAppContext } from '@/hooks/useAppContext';
+import { isLiked } from '@/utils/helpers';
 
 export default function JokeCard() {
   const { joke, isLoading, error }: JokeHookReturn = useJoke();
@@ -24,8 +25,7 @@ export default function JokeCard() {
       if (!prev) {
         return [joke];
       }
-      const isLiked = prev.some((liked) => liked.id === joke.id);
-      const updatedJokes = isLiked
+      const updatedJokes = isLiked(prev, joke.id)
         ? prev.filter((liked) => liked.id !== joke.id)
         : [...prev, joke];
       localStorage.setItem('jokes', JSON.stringify(updatedJokes));
@@ -58,7 +58,7 @@ export default function JokeCard() {
                 top: '.5rem',
                 right: '.5rem',
               }}>
-              {likedJokes?.some((liked) => liked.id === joke.id) ? (
+              {likedJokes && isLiked(likedJokes, joke.id) ? (
                 <FavoriteOutlinedIcon
                   fontSize='large'
                   style={{ color: '#F97242' }}
