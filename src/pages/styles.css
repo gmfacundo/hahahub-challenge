@@ -1,0 +1,8 @@
+.app-container {
+  background: linear-gradient(
+    to bottom,
+    #f98d67,
+    rgba(248, 145, 108, 0.9) 85%,
+    rgba(241, 165, 139, 0.3)
+  );
+}
