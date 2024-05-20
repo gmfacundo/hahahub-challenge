@@ -1,13 +1,16 @@
 'use client';
 
 import { Box, Container, Drawer, Paper } from '@mui/material';
+import { useTheme } from '@mui/material';
 import Header from '@/components/Header';
 import JokeCard from '@/components/JokeCard';
 import './styles.css';
 import { useAppContext } from '@/hooks/useAppContext';
+import { Sidebar } from '@/components/Sidebar';
 
 export default function MainPage() {
-  const { likedJokes } = useAppContext();
+  const { likedJokes, setLikedJokes } = useAppContext();
+  const theme = useTheme();
   return (
     <Container
       fixed
@@ -20,31 +23,29 @@ export default function MainPage() {
         margin: '0px',
       }}
       className='app-container'>
-      <Box>
+      <Box
+        component='main'
+        sx={{
+          p: 3,
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          marginRight: '-30vw',
+          ...(likedJokes &&
+            likedJokes?.length > 0 && {
+              transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+              marginRight: 0,
+            }),
+        }}>
         <Header />
         <JokeCard />
       </Box>
-      <Box
-        component='nav'
-        sx={{ width: { sm: '25vw' }, flexShrink: { sm: 0 } }}>
-        {likedJokes && likedJokes.length > 0 && (
-          <Drawer
-            sx={{
-              width: '25vw',
-              flexShrink: 0,
-              '& .MuiDrawer-paper': {
-                width: '25vw',
-                boxSizing: 'border-box',
-                backgroundColor: 'red',
-              },
-            }}
-            variant='permanent'
-            anchor='right'>
-            {likedJokes.map((joke) => (
-              <Paper key={joke.id}>{joke.joke}</Paper>
-            ))}
-          </Drawer>
-        )}
+      <Box component='nav'>
+        <Sidebar likedJokes={likedJokes} setLikedJokes={setLikedJokes} />
       </Box>
     </Container>
   );
