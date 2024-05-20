@@ -58,7 +58,7 @@ export default function JokeCard() {
                 top: '.5rem',
                 right: '.5rem',
               }}>
-              {likedJokes && isLiked(likedJokes, joke.id) ? (
+              {isLiked(likedJokes, joke.id) ? (
                 <FavoriteOutlinedIcon
                   fontSize='large'
                   style={{ color: '#F97242' }}
