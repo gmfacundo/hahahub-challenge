@@ -1,0 +1,8 @@
+.share {
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #5c5c5c;
+  }
+}

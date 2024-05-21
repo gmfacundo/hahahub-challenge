@@ -3,8 +3,9 @@ import Fade from '@mui/material/Fade';
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
-import { ClipboardToast } from './ClipboardToast';
+import { ClipboardToast } from '../ClipboardToast';
 import { AlertInterface } from '@/interfaces/AlertInterface';
+import './styles.css';
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction='up' />;
@@ -48,11 +49,9 @@ export function Share({
           justifyContent: 'center',
           paddingTop: '1.5rem',
         }}>
-        <Typography variant='h5' color='#5C5C5C'>
+        <Typography variant='h5' color='black'>
           You really liked this one?{' '}
-          <span
-            onClick={handleClick(SlideTransition)}
-            style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <span onClick={handleClick(SlideTransition)} className='share'>
             Share it with a friend!
           </span>
         </Typography>
