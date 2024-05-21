@@ -5,22 +5,31 @@ import {
   Card,
   CardContent,
   Typography,
-  Skeleton,
   IconButton,
   Box,
+  Skeleton,
 } from '@mui/material';
-import { useJoke } from '../hooks/useJoke';
-import { JokeHookReturn } from '@/types/HookReturn';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
-import { useAppContext } from '@/hooks/useAppContext';
 import { isLiked } from '@/utils/helpers';
 import ContextInterface from '@/interfaces/ContextInterface';
+import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
+import ApiResponse from '@/interfaces/ResponseInterface';
+import ApiError from '@/interfaces/ErrorInterface';
 
-export default function JokeCard() {
-  const { joke, isLoading, error }: JokeHookReturn = useJoke();
-  const { likedJokes, setLikedJokes } = useAppContext();
-
+export default function JokeCard({
+  joke,
+  isLoading,
+  error,
+  likedJokes,
+  setLikedJokes,
+}: {
+  joke: ApiResponse;
+  isLoading: boolean;
+  error: ApiError | null;
+  likedJokes: LikedJokes;
+  setLikedJokes: SetLikedJokes;
+}) {
   const handleLike = () => {
     let updatedJokes: ContextInterface[];
 
@@ -51,8 +60,8 @@ export default function JokeCard() {
           <Typography variant='body1' color='error'>
             {error.message}
           </Typography>
-        ) : isLoading ? (
-          <Skeleton variant='text' width={200} height={40} />
+        ) : isLoading && joke.joke.length === 0 ? (
+          <Skeleton variant='text' width={'15rem'} height={'1rem'} />
         ) : (
           <Box paddingRight='4rem'>
             <Typography variant='h6'>{joke.joke}</Typography>
