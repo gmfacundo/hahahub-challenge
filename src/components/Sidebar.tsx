@@ -2,10 +2,7 @@
 
 import { Drawer, IconButton, Paper, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  LikedJokes,
-  SetLikedJokes,
-} from '@/context/types/Context';
+import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import ContextInterface from '@/interfaces/ContextInterface';
 import { useRouter } from 'next/navigation';
 
@@ -18,6 +15,10 @@ export const Sidebar = ({
 }) => {
   const router = useRouter();
 
+  const handleClick = (jokeId: string) => {
+    router.push(`/?joke=${jokeId}`);
+  };
+
   const handleDelete = (
     e: React.MouseEvent<HTMLButtonElement>,
     jokeId: string
@@ -27,10 +28,6 @@ export const Sidebar = ({
       (joke) => joke.id !== jokeId
     );
     setLikedJokes(updatedJokes);
-  };
-
-  const handleClick = (jokeId: string) => {
-    router.push(`/?joke=${jokeId}`);
   };
 
   const open: boolean = likedJokes !== null && likedJokes.length > 0;
