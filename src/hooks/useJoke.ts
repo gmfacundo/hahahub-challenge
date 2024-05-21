@@ -26,8 +26,6 @@ export function useJoke(): JokeHookReturn {
 
   useEffect(() => {
     const fetchJokeAndSetState = async () => {
-      setIsLoading(true);
-      setError(null);
       let joke: Joke | null;
       if (isLiked(likedJokes, jokeId)) {
         joke = likedJokes!.find((joke) => joke.id === jokeId) as Joke;
@@ -44,15 +42,17 @@ export function useJoke(): JokeHookReturn {
           setFetchNewJoke(false);
         } catch (error) {
           setError(error as ApiError);
-          setFetchNewJoke(false);
         } finally {
           setIsLoading(false);
-          setFetchNewJoke(false);
         }
       }
     };
-    console.log(fetchNewJoke);
+    setIsLoading(true);
+    setError(null);
+
     fetchJokeAndSetState();
+
+    setIsLoading(false);
   }, [jokeId, fetchNewJoke]);
 
   return { joke, isLoading, error };
