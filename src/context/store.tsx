@@ -27,7 +27,7 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedJokes = localStorage.getItem('jokes');
     if (storedJokes) {
-      setLikedJokes(JSON.parse(storedJokes));
+      setLikedJokesAux(JSON.parse(storedJokes));
     }
   }, []);
 
