@@ -34,9 +34,11 @@ export function useJoke(): JokeHookReturn {
         setJoke(joke);
         setCurJokeId(joke.id);
         setIsLoading(false);
-      } else {
+      } else if (fetchNewJoke) {
         try {
           joke = await fetchJoke(jokeId);
+          if (joke !== null && joke.status === 404)
+            throw new Error('Cannot find the joke 😟');
           setJoke(joke || initialJoke);
           setCurJokeId(joke!.id);
         } catch (error) {
@@ -46,10 +48,9 @@ export function useJoke(): JokeHookReturn {
         }
       }
     };
+    fetchJokeAndSetState();
 
-    if (fetchNewJoke) fetchJokeAndSetState();
-
-    setFetchNewJoke(false);
+    fetchNewJoke && setFetchNewJoke(false);
   }, [jokeId, fetchNewJoke]);
 
   return { joke, isLoading, error };
