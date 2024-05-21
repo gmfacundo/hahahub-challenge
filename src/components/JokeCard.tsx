@@ -43,10 +43,13 @@ export default function JokeCard() {
         backdropFilter: 'blur(10px)',
         borderRadius: '8px',
       }}>
-      <CardContent>
+      <CardContent
+        sx={{
+          '&:last-child': { paddingBottom: '16px' },
+        }}>
         {error ? (
           <Typography variant='body1' color='error'>
-            Error: {error.message}
+            {error.message}
           </Typography>
         ) : isLoading ? (
           <Skeleton variant='text' width={200} height={40} />
