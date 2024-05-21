@@ -1,23 +1,10 @@
 import Slide, { SlideProps } from '@mui/material/Slide';
 import Fade from '@mui/material/Fade';
 import { useState } from 'react';
-import {
-  Alert,
-  Box,
-  Snackbar,
-  SnackbarOrigin,
-  Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
-
-interface AlertInterface extends SnackbarOrigin {
-  open: boolean;
-  Transition: React.ComponentType<
-    TransitionProps & {
-      children: React.ReactElement<any, any>;
-    }
-  >;
-}
+import { ClipboardToast } from './ClipboardToast';
+import { AlertInterface } from '@/interfaces/AlertInterface';
 
 function SlideTransition(props: SlideProps) {
   return <Slide {...props} direction='up' />;
@@ -53,15 +40,6 @@ export function Share({
       setOpenAlert({ ...openAlert, open: true, Transition });
     };
 
-  const handleClose = () => {
-    setOpenAlert({
-      ...openAlert,
-      open: false,
-    });
-  };
-
-  const { vertical, horizontal, open } = openAlert;
-
   return (
     <>
       <Box
@@ -79,31 +57,7 @@ export function Share({
           </span>
         </Typography>
       </Box>
-      <Snackbar
-        open={open}
-        anchorOrigin={{ vertical, horizontal }}
-        autoHideDuration={2000}
-        onClose={handleClose}
-        TransitionComponent={openAlert.Transition}
-        key={openAlert.Transition.name}
-        sx={{
-          position: 'absolute',
-        }}>
-        <Alert
-          icon={false}
-          // onClose={handleClose}
-          severity='success'
-          variant='outlined'
-          color='warning'
-          sx={{
-            width: '100%',
-            backgroundColor: '#FECCA7',
-            border: '1px solid #8F3C1E',
-            color: 'black',
-          }}>
-          Link copied to clipboard!
-        </Alert>
-      </Snackbar>
+      <ClipboardToast openAlert={openAlert} setOpenAlert={setOpenAlert} />
     </>
   );
 }
