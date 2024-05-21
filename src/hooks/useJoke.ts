@@ -41,16 +41,18 @@ export function useJoke(): JokeHookReturn {
             throw new Error('Cannot find the joke 😟');
           setJoke(joke || initialJoke);
           setCurJokeId(joke!.id);
+          setFetchNewJoke(false);
         } catch (error) {
           setError(error as ApiError);
+          setFetchNewJoke(false);
         } finally {
           setIsLoading(false);
+          setFetchNewJoke(false);
         }
       }
     };
+    console.log(fetchNewJoke);
     fetchJokeAndSetState();
-
-    fetchNewJoke && setFetchNewJoke(false);
   }, [jokeId, fetchNewJoke]);
 
   return { joke, isLoading, error };
