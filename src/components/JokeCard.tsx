@@ -43,7 +43,6 @@ export default function JokeCard({
 
     setLikedJokes(updatedJokes);
   };
-
   return (
     <Card
       sx={{
@@ -60,7 +59,7 @@ export default function JokeCard({
           <Typography variant='body1' color='error'>
             {error.message}
           </Typography>
-        ) : isLoading && joke.joke.length === 0 ? (
+        ) : isLoading || joke.joke.length === 0 ? (
           <Skeleton variant='text' width={'15rem'} height={'1rem'} />
         ) : (
           <Box paddingRight='4rem'>
