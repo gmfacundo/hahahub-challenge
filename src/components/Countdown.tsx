@@ -55,8 +55,7 @@ export function Countdown() {
       display='flex'
       flexDirection='column'
       justifyContent='center'
-      alignItems='center'
-      paddingTop='10px'>
+      alignItems='center'>
       <Typography variant='h6' color='black' paddingBlock='10px'>
         Next joke in {seconds} seconds
       </Typography>

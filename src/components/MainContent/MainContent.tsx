@@ -1,14 +1,14 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material';
 import Header from '@/components/Header';
 import JokeCard from '@/components/JokeCard';
 import './styles.css';
 import { useEffect, useState } from 'react';
-import { Countdown } from '@/components/Countdown';
 import { useJoke } from '@/hooks/useJoke';
 import { JokeHookReturn } from '@/types/HookReturn';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
-import { Share } from '../Share';
+import { Share } from '../Share/Share';
+import { Footer } from '../Footer';
 
 export function MainContent({
   curJokeId,
@@ -29,7 +29,6 @@ export function MainContent({
   const theme = useTheme();
 
   const showShare = !error || (!isLoading && joke.joke.length > 0); //Any error, is not loading and there already is a joke.
-  const showCountdown = path && !/[?&]joke=/.test(path.search); //Path doesn't havy query param 'joke'
 
   return (
     <Box
@@ -65,12 +64,7 @@ export function MainContent({
         setLikedJokes={setLikedJokes}
       />
       {showShare ? <Share path={path} curJokeId={curJokeId} /> : null}
-
-      {showCountdown ? (
-        <Countdown />
-      ) : !isLoading ? (
-        <Button variant='contained'>Get another joke</Button>
-      ) : null}
+      <Footer path={path} isLoading={isLoading} />
     </Box>
   );
 }
