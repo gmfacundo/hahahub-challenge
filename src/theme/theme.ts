@@ -21,11 +21,3 @@ const theme = createTheme({
 });
 
 export default theme;
-
-// #F97242
-// #FECCA7
-// #8F3C1E
-
-// #F34D11
-
-// Revisar #F34D11
