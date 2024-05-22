@@ -11,7 +11,7 @@ export function SavedJokes({
   setLikedJokes: SetLikedJokes;
 }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); //750
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const open: boolean = likedJokes !== null && likedJokes.length > 0;
   return (
