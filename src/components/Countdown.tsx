@@ -63,13 +63,12 @@ export function Countdown() {
         variant='determinate'
         value={progress}
         sx={{
-          // transform: 'rotate(180deg)',
           width: '30vw',
           height: '10px',
           '&': {
             backgroundColor: '#8F3C1E',
           },
-          '& .css-5xe99f-MuiLinearProgress-bar1': {
+          '& .MuiLinearProgress-bar': {
             backgroundColor: '#FECCA7',
           },
           borderRadius: '5px',
