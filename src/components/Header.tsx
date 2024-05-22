@@ -1,8 +1,12 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import Image from 'next/image';
 
 export default function Header() {
+  const theme = useTheme();
+
+  const isXs = theme.breakpoints.down('xs');
+
   return (
     <Box
       display='flex'
@@ -10,7 +14,11 @@ export default function Header() {
       alignItems='center'
       justifyContent='center'
       paddingBottom={'4rem'}>
-      <Image src='/logo.png' alt='Logo' width={400} height={225} />
+      {isXs ? (
+        <Image src='/logo.png' alt='Logo' width={300} height={169} />
+      ) : (
+        <Image src='/logo.png' alt='Logo' width={400} height={225} />
+      )}
     </Box>
   );
 }
