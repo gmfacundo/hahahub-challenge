@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import Image from 'next/image';
 
 export default function Header() {
   return (
@@ -8,8 +9,8 @@ export default function Header() {
       flexDirection='column'
       alignItems='center'
       justifyContent='center'
-      sx={{ paddingBottom: '4rem' }}>
-      <img src='/logo.png' alt='Logo' style={{ width: '25rem' }} />
+      paddingBottom={'4rem'}>
+      <Image src='/logo.png' alt='Logo' width={400} height={225} />
     </Box>
   );
 }
