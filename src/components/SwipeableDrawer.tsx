@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Global, css } from '@emotion/react';
 import { styled, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Stack, Typography } from '@mui/material';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import {
   LeadingActions,
@@ -14,6 +14,8 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { SearchBar } from './SearchBar';
+import { EmptyList } from './EmptyList';
 
 const drawerBleeding = 56;
 
@@ -37,8 +39,13 @@ export default function SwipeableEdgeDrawer({
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
+  const [filteredJokes, setFilteredJokes] = useState<LikedJokes | null>(
+    null
+  );
   const router = useRouter();
   const theme = useTheme();
+
+  useEffect(() => setFilteredJokes(likedJokes), [likedJokes]);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -136,31 +143,42 @@ export default function SwipeableEdgeDrawer({
           }}>
           {open && (
             <SwipeableList threshold={0.35} destructiveCallbackDelay={500}>
-              {likedJokes!.map((joke, index) => (
-                <SwipeableListItem
-                  key={joke.id}
-                  leadingActions={leadingActions(joke.id)}
-                  fullSwipe={false}
-                  onSwipeStart={() => {
-                    setIsSwiping(true);
-                    setItem(index);
-                  }}
-                  onSwipeEnd={() => setIsSwiping(false)}>
-                  <Card
-                    style={{
-                      backgroundColor: theme.palette.primary.light,
-                      width: '100%',
-                    }}
-                    onClick={() => handleClick(joke.id)}>
-                    <CardContent
-                      sx={{
-                        '&:last-child': { paddingBottom: '16px' },
-                      }}>
-                      <Typography variant='h6'>{joke.joke}</Typography>
-                    </CardContent>
-                  </Card>
-                </SwipeableListItem>
-              ))}
+              <SearchBar
+                likedJokes={likedJokes}
+                setFilteredJokes={setFilteredJokes}
+                isMobile
+              />
+              {filteredJokes && filteredJokes.length ? (
+                <Stack spacing={1} marginTop='.5rem'>
+                  {filteredJokes.map((joke, index) => (
+                    <SwipeableListItem
+                      key={joke.id}
+                      leadingActions={leadingActions(joke.id)}
+                      fullSwipe={false}
+                      onSwipeStart={() => {
+                        setIsSwiping(true);
+                        setItem(index);
+                      }}
+                      onSwipeEnd={() => setIsSwiping(false)}>
+                      <Card
+                        style={{
+                          backgroundColor: theme.palette.primary.light,
+                          width: '100%',
+                        }}
+                        onClick={() => handleClick(joke.id)}>
+                        <CardContent
+                          sx={{
+                            '&:last-child': { paddingBottom: '16px' },
+                          }}>
+                          <Typography variant='h6'>{joke.joke}</Typography>
+                        </CardContent>
+                      </Card>
+                    </SwipeableListItem>
+                  ))}
+                </Stack>
+              ) : likedJokes && likedJokes.length ? (
+                <EmptyList />
+              ) : null}
             </SwipeableList>
           )}
         </Box>

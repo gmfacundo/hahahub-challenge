@@ -4,6 +4,7 @@ import {
   Drawer,
   IconButton,
   Paper,
+  Stack,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -11,6 +12,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import ContextInterface from '@/interfaces/ContextInterface';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { SearchBar } from './SearchBar';
+import { EmptyList } from './EmptyList';
 
 export const Sidebar = ({
   likedJokes,
@@ -19,8 +23,13 @@ export const Sidebar = ({
   likedJokes: LikedJokes;
   setLikedJokes: SetLikedJokes;
 }) => {
+  const [filteredJokes, setFilteredJokes] = useState<LikedJokes | null>(
+    null
+  );
   const router = useRouter();
   const theme = useTheme();
+
+  useEffect(() => setFilteredJokes(likedJokes), [likedJokes]);
 
   const handleClick = (jokeId: string) => {
     router.push(`/?joke=${jokeId}`);
@@ -38,6 +47,7 @@ export const Sidebar = ({
   };
 
   const open: boolean = likedJokes !== null && likedJokes.length > 0;
+
   return (
     <Drawer
       open={open}
@@ -52,38 +62,48 @@ export const Sidebar = ({
           padding: '5px',
           boxShadow: '-10px 0px 10px -4px rgba(0,0,0,0.32)',
           WebkitBoxShadow: '-10px 0px 10px -4px rgba(0,0,0,0.32)',
+          marginBottom: '1rem',
         },
       }}
       variant='persistent'
       anchor='right'>
-      {open &&
-        likedJokes!.map((joke) => (
-          <Paper
-            key={joke.id}
-            elevation={6}
-            sx={{ padding: '5px 2rem 5px 5px', marginBottom: '5px' }}
-            style={{
-              cursor: 'pointer',
-              position: 'relative',
-              backgroundColor: theme.palette.primary.light,
-            }}
-            onClick={() => handleClick(joke.id)}>
-            <Typography variant='subtitle2'>{joke.joke}</Typography>
-            <IconButton
-              onClick={(e) => handleDelete(e, joke.id)}
+      <SearchBar
+        likedJokes={likedJokes}
+        setFilteredJokes={setFilteredJokes}
+      />
+      {filteredJokes && filteredJokes.length ? (
+        <Stack spacing={1} marginTop='.5rem'>
+          {filteredJokes!.map((joke) => (
+            <Paper
+              key={joke.id}
+              elevation={6}
+              sx={{ padding: '5px 2rem 5px 5px' }}
               style={{
-                position: 'absolute',
-                top: '1px',
-                right: '1px',
-                padding: '4px',
-              }}>
-              <DeleteIcon
-                fontSize='medium'
-                sx={{ color: theme.palette.grey[700] }}
-              />
-            </IconButton>
-          </Paper>
-        ))}
+                cursor: 'pointer',
+                position: 'relative',
+                backgroundColor: theme.palette.primary.light,
+              }}
+              onClick={() => handleClick(joke.id)}>
+              <Typography variant='subtitle2'>{joke.joke}</Typography>
+              <IconButton
+                onClick={(e) => handleDelete(e, joke.id)}
+                style={{
+                  position: 'absolute',
+                  top: '1px',
+                  right: '1px',
+                  padding: '4px',
+                }}>
+                <DeleteIcon
+                  fontSize='medium'
+                  sx={{ color: theme.palette.grey[700] }}
+                />
+              </IconButton>
+            </Paper>
+          ))}
+        </Stack>
+      ) : likedJokes && likedJokes.length ? (
+        <EmptyList />
+      ) : null}
     </Drawer>
   );
 };
