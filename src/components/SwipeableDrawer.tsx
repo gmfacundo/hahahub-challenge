@@ -156,7 +156,7 @@ export default function SwipeableEdgeDrawer({
                       sx={{
                         '&:last-child': { paddingBottom: '16px' },
                       }}>
-                      <Typography variant='body2'>{joke.joke}</Typography>
+                      <Typography variant='h6'>{joke.joke}</Typography>
                     </CardContent>
                   </Card>
                 </SwipeableListItem>

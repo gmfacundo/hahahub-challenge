@@ -61,7 +61,7 @@ export const Sidebar = ({
               backgroundColor: '#FECCA7',
             }}
             onClick={() => handleClick(joke.id)}>
-            <Typography>{joke.joke}</Typography>
+            <Typography variant='subtitle2'>{joke.joke}</Typography>
             <IconButton
               onClick={(e) => handleDelete(e, joke.id)}
               style={{
