@@ -1,6 +1,12 @@
 'use client';
 
-import { Drawer, IconButton, Paper, Typography } from '@mui/material';
+import {
+  Drawer,
+  IconButton,
+  Paper,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import ContextInterface from '@/interfaces/ContextInterface';
@@ -14,6 +20,7 @@ export const Sidebar = ({
   setLikedJokes: SetLikedJokes;
 }) => {
   const router = useRouter();
+  const theme = useTheme();
 
   const handleClick = (jokeId: string) => {
     router.push(`/?joke=${jokeId}`);
@@ -40,8 +47,8 @@ export const Sidebar = ({
         '& .MuiDrawer-paper': {
           width: '30vw',
           boxSizing: 'border-box',
-          backgroundColor: '#F97242',
-          borderLeft: '1px solid #8F3C1E',
+          backgroundColor: theme.palette.primary.main,
+          borderLeft: `1px solid ${theme.palette.primary.dark}`,
           padding: '5px',
           boxShadow: '-10px 0px 10px -4px rgba(0,0,0,0.32)',
           WebkitBoxShadow: '-10px 0px 10px -4px rgba(0,0,0,0.32)',
@@ -58,7 +65,7 @@ export const Sidebar = ({
             style={{
               cursor: 'pointer',
               position: 'relative',
-              backgroundColor: '#FECCA7',
+              backgroundColor: theme.palette.primary.light,
             }}
             onClick={() => handleClick(joke.id)}>
             <Typography variant='subtitle2'>{joke.joke}</Typography>
@@ -70,7 +77,10 @@ export const Sidebar = ({
                 right: '1px',
                 padding: '4px',
               }}>
-              <DeleteIcon fontSize='medium' style={{ color: '#666668' }} />
+              <DeleteIcon
+                fontSize='medium'
+                sx={{ color: theme.palette.grey[700] }}
+              />
             </IconButton>
           </Paper>
         ))}

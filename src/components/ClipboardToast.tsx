@@ -1,5 +1,5 @@
 import { AlertInterface } from '@/interfaces/AlertInterface';
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, useTheme } from '@mui/material';
 
 export function ClipboardToast({
   openAlert,
@@ -8,6 +8,7 @@ export function ClipboardToast({
   openAlert: AlertInterface;
   setOpenAlert: React.Dispatch<React.SetStateAction<AlertInterface>>;
 }) {
+  const theme = useTheme();
   const handleClose = () => {
     setOpenAlert({
       ...openAlert,
@@ -32,8 +33,8 @@ export function ClipboardToast({
         severity='success'
         variant='outlined'
         sx={{
-          backgroundColor: '#FECCA7',
-          border: '1px solid #8F3C1E',
+          backgroundColor: theme.palette.primary.light,
+          border: `1px solid ${theme.palette.primary.dark}`,
           color: 'black',
         }}>
         Link copied to clipboard!

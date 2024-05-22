@@ -21,6 +21,7 @@ export default function MainPage() {
           minHeight: '100vh',
           minWidth: '100vw',
           margin: '0px',
+          // backgroundColor: theme.palette.primary.main,
         }}
         className='app-container'>
         <Suspense>

@@ -8,6 +8,7 @@ import {
   IconButton,
   Box,
   Skeleton,
+  useTheme,
 } from '@mui/material';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
@@ -30,6 +31,8 @@ export default function JokeCard({
   likedJokes: LikedJokes;
   setLikedJokes: SetLikedJokes;
 }) {
+  const theme = useTheme();
+
   const handleLike = () => {
     let updatedJokes: ContextInterface[];
 
@@ -47,7 +50,7 @@ export default function JokeCard({
     <Card
       sx={{
         border: '1px dashed grey',
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: theme.palette.primary.light,
         backdropFilter: 'blur(10px)',
         borderRadius: '8px',
       }}>
@@ -74,12 +77,12 @@ export default function JokeCard({
               {isLiked(likedJokes, joke.id) ? (
                 <FavoriteOutlinedIcon
                   fontSize='large'
-                  style={{ color: '#F97242' }}
+                  style={{ color: theme.palette.primary.main }}
                 />
               ) : (
                 <FavoriteBorderOutlinedIcon
                   fontSize='large'
-                  style={{ color: '#F97242' }}
+                  style={{ color: theme.palette.primary.main }}
                 />
               )}
             </IconButton>

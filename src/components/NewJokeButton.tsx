@@ -1,5 +1,5 @@
 import { useAppContext } from '@/hooks/useAppContext';
-import { Button } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 export function NewJokeButton({ path }: { path: URL | null }) {
@@ -10,13 +10,18 @@ export function NewJokeButton({ path }: { path: URL | null }) {
     router.push(path!.origin);
   };
 
+  const theme = useTheme();
+
   return (
     <Button
       variant={'contained'}
       sx={{
-        backgroundColor: '#FECCA7',
-        '&:hover': { backgroundColor: '#F97242', color: '#FECCA7' },
-        color: '#5C5C5C',
+        backgroundColor: theme.palette.primary.light,
+        '&:hover': {
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.light,
+        },
+        color: theme.palette.grey[700],
         fontWeight: '600',
       }}
       size='medium'

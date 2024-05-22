@@ -1,5 +1,5 @@
 import { useAppContext } from '@/hooks/useAppContext';
-import { Box, LinearProgress, Typography } from '@mui/material';
+import { Box, LinearProgress, Typography, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 export function Countdown() {
@@ -7,6 +7,8 @@ export function Countdown() {
   const [progress, setProgress] = useState<number>(0);
   const [reset, setReset] = useState<boolean>(false);
   const { setFetchNewJoke } = useAppContext();
+  const theme = useTheme();
+
   useEffect(() => {
     let interval: NodeJS.Timeout = setInterval(() => {}, 0);
     let timeout: NodeJS.Timeout = setInterval(() => {}, 0);
@@ -63,13 +65,13 @@ export function Countdown() {
         variant='determinate'
         value={progress}
         sx={{
-          width: '30vw',
+          width: '30rem',
           height: '10px',
           '&': {
-            backgroundColor: '#8F3C1E',
+            backgroundColor: theme.palette.primary.dark,
           },
           '& .MuiLinearProgress-bar': {
-            backgroundColor: '#FECCA7',
+            backgroundColor: theme.palette.primary.light,
           },
           borderRadius: '5px',
         }}

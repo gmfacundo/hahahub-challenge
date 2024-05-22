@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Global, css } from '@emotion/react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Box, Card, CardContent, Typography } from '@mui/material';
@@ -11,7 +11,6 @@ import {
   SwipeAction,
   SwipeableList,
   SwipeableListItem,
-  Type,
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,7 +20,7 @@ const drawerBleeding = 56;
 const Puller = styled('div')(({ theme }) => ({
   width: 150,
   height: 6,
-  backgroundColor: '#8F3C1E',
+  backgroundColor: theme.palette.primary.dark,
   borderRadius: 3,
   position: 'absolute',
   top: 8,
@@ -39,6 +38,7 @@ export default function SwipeableEdgeDrawer({
   const [item, setItem] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
   const router = useRouter();
+  const theme = useTheme();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -70,7 +70,7 @@ export default function SwipeableEdgeDrawer({
           }}>
           <DeleteIcon
             style={{
-              color: '#672E1A',
+              color: theme.palette.primary.dark,
               fontSize: '3.5rem',
             }}
           />
@@ -115,7 +115,7 @@ export default function SwipeableEdgeDrawer({
         }}>
         <Box
           sx={{
-            backgroundColor: '#F97242',
+            backgroundColor: theme.palette.primary.main,
             position: 'absolute',
             top: -30,
             borderTopLeftRadius: 8,
@@ -129,7 +129,7 @@ export default function SwipeableEdgeDrawer({
         </Box>
         <Box
           sx={{
-            backgroundColor: '#F97242',
+            backgroundColor: theme.palette.primary.main,
             paddingBottom: 2,
             height: '100%',
             overflow: 'auto',
@@ -148,7 +148,7 @@ export default function SwipeableEdgeDrawer({
                   onSwipeEnd={() => setIsSwiping(false)}>
                   <Card
                     style={{
-                      backgroundColor: '#FECCA7',
+                      backgroundColor: theme.palette.primary.light,
                       width: '100%',
                     }}
                     onClick={() => handleClick(joke.id)}>
