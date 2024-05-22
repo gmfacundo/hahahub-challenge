@@ -5,6 +5,7 @@ import { useAppContext } from '@/hooks/useAppContext';
 import { Sidebar } from '@/components/Sidebar';
 import { MainContent } from '@/components/MainContent/MainContent';
 import SwipeableEdgeDrawer from '@/components/SwipeableDrawer';
+import { Suspense } from 'react';
 
 export default function MainPage() {
   const { likedJokes, setLikedJokes, curJokeId } = useAppContext();
@@ -23,11 +24,13 @@ export default function MainPage() {
         margin: '0px',
       }}
       className='app-container'>
-      <MainContent
-        likedJokes={likedJokes}
-        setLikedJokes={setLikedJokes}
-        curJokeId={curJokeId}
-      />
+      <Suspense>
+        <MainContent
+          likedJokes={likedJokes}
+          setLikedJokes={setLikedJokes}
+          curJokeId={curJokeId}
+        />
+      </Suspense>
       {isMobile ? (
         <SwipeableEdgeDrawer
           likedJokes={likedJokes}
