@@ -31,9 +31,7 @@ export function ClipboardToast({
         icon={false}
         severity='success'
         variant='outlined'
-        color='warning'
         sx={{
-          width: '100%',
           backgroundColor: '#FECCA7',
           border: '1px solid #8F3C1E',
           color: 'black',
