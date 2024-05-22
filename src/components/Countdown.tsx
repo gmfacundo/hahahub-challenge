@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 export function Countdown() {
   const [seconds, setSeconds] = useState<number>(10);
-  const [progress, setProgress] = useState<number>(100);
+  const [progress, setProgress] = useState<number>(0);
   const [reset, setReset] = useState<boolean>(false);
   const { setFetchNewJoke } = useAppContext();
   useEffect(() => {
@@ -13,13 +13,13 @@ export function Countdown() {
 
     const updateProgress = () => {
       setProgress((oldProgress) => {
-        if (oldProgress <= 0) {
+        if (oldProgress >= 100) {
           setReset(true); // Activate reset flag
-          setProgress(100);
+          setProgress(0);
           setSeconds(10);
           return 100;
         }
-        return oldProgress - 1;
+        return oldProgress + 1;
       });
     };
 
@@ -63,14 +63,14 @@ export function Countdown() {
         variant='determinate'
         value={progress}
         sx={{
-          transform: 'rotate(180deg)',
+          // transform: 'rotate(180deg)',
           width: '30vw',
           height: '10px',
           '&': {
-            backgroundColor: '#FECCA7',
+            backgroundColor: '#8F3C1E',
           },
           '& .css-5xe99f-MuiLinearProgress-bar1': {
-            backgroundColor: '#8F3C1E',
+            backgroundColor: '#FECCA7',
           },
           borderRadius: '5px',
         }}
