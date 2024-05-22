@@ -12,6 +12,8 @@ export default function MainPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); //750
 
+  const open: boolean = likedJokes !== null && likedJokes.length > 0;
+
   return (
     <Container
       fixed
@@ -31,7 +33,7 @@ export default function MainPage() {
           curJokeId={curJokeId}
         />
       </Suspense>
-      {isMobile ? (
+      {isMobile && open ? (
         <SwipeableEdgeDrawer
           likedJokes={likedJokes}
           setLikedJokes={setLikedJokes}
