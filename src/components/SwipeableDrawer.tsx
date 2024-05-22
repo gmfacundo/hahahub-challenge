@@ -42,10 +42,20 @@ export default function SwipeableEdgeDrawer({
   const [filteredJokes, setFilteredJokes] = useState<LikedJokes | null>(
     null
   );
+  const [searchValue, setSearchValue] = useState<string>('');
+
   const router = useRouter();
   const theme = useTheme();
 
-  useEffect(() => setFilteredJokes(likedJokes), [likedJokes]);
+  useEffect(() => {
+    likedJokes && setFilteredJokes(filterJokes(likedJokes, searchValue));
+  }, [likedJokes, searchValue]);
+
+  const filterJokes = (jokes: LikedJokes, value: string) => {
+    return jokes!.filter((joke) =>
+      joke.joke.toLowerCase().includes(value.toLowerCase())
+    );
+  };
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -146,36 +156,36 @@ export default function SwipeableEdgeDrawer({
               <SearchBar
                 likedJokes={likedJokes}
                 setFilteredJokes={setFilteredJokes}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
                 isMobile
               />
               {filteredJokes && filteredJokes.length ? (
-                <Stack spacing={1} marginTop='.5rem'>
-                  {filteredJokes.map((joke, index) => (
-                    <SwipeableListItem
-                      key={joke.id}
-                      leadingActions={leadingActions(joke.id)}
-                      fullSwipe={false}
-                      onSwipeStart={() => {
-                        setIsSwiping(true);
-                        setItem(index);
+                filteredJokes.map((joke, index) => (
+                  <SwipeableListItem
+                    key={joke.id}
+                    leadingActions={leadingActions(joke.id)}
+                    fullSwipe={false}
+                    onSwipeStart={() => {
+                      setIsSwiping(true);
+                      setItem(index);
+                    }}
+                    onSwipeEnd={() => setIsSwiping(false)}>
+                    <Card
+                      style={{
+                        backgroundColor: theme.palette.primary.light,
+                        width: '100%',
                       }}
-                      onSwipeEnd={() => setIsSwiping(false)}>
-                      <Card
-                        style={{
-                          backgroundColor: theme.palette.primary.light,
-                          width: '100%',
-                        }}
-                        onClick={() => handleClick(joke.id)}>
-                        <CardContent
-                          sx={{
-                            '&:last-child': { paddingBottom: '16px' },
-                          }}>
-                          <Typography variant='h6'>{joke.joke}</Typography>
-                        </CardContent>
-                      </Card>
-                    </SwipeableListItem>
-                  ))}
-                </Stack>
+                      onClick={() => handleClick(joke.id)}>
+                      <CardContent
+                        sx={{
+                          '&:last-child': { paddingBottom: '16px' },
+                        }}>
+                        <Typography variant='h6'>{joke.joke}</Typography>
+                      </CardContent>
+                    </Card>
+                  </SwipeableListItem>
+                ))
               ) : likedJokes && likedJokes.length ? (
                 <EmptyList />
               ) : null}

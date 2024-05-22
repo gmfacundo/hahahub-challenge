@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LikedJokes } from '@/context/types/Context';
 import {
   Box,
@@ -16,36 +16,41 @@ import { useDebouncedCallback } from 'use-debounce';
 export function SearchBar({
   likedJokes,
   setFilteredJokes,
+  searchValue,
+  setSearchValue,
   isMobile = false,
 }: {
   likedJokes: LikedJokes;
   setFilteredJokes: React.Dispatch<React.SetStateAction<LikedJokes>>;
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
   isMobile?: boolean;
 }) {
-  const [value, setValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const theme = useTheme();
 
   const handleChange = (value: string) => {
     setIsLoading(true);
-    setValue(value);
+    setSearchValue(value);
     debouncedFilter(value);
   };
 
-  const debouncedFilter = useDebouncedCallback((search) => {
-    const filteredJokes = likedJokes!.filter((joke) =>
-      joke.joke.includes(search)
-    );
-    setFilteredJokes(filteredJokes);
+  const debouncedFilter = useDebouncedCallback((value: string) => {
     setIsLoading(false);
+    setFilteredJokes(
+      likedJokes!.filter((joke) =>
+        joke.joke.toLowerCase().includes(value.toLowerCase())
+      )
+    );
   }, 1000);
+
   return (
     <>
       <Box marginTop='1rem' paddingBottom='1rem'>
         <TextField
           hiddenLabel
           variant='filled'
-          value={value}
+          value={searchValue}
           fullWidth
           sx={{
             backgroundColor: theme.palette.primary.light,
@@ -78,7 +83,7 @@ export function SearchBar({
                 {isLoading ? (
                   <CircularProgress size='2rem' />
                 ) : (
-                  value && (
+                  searchValue && (
                     <IconButton onClick={() => handleChange('')}>
                       <CancelRoundedIcon
                         sx={{

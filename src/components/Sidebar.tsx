@@ -26,10 +26,13 @@ export const Sidebar = ({
   const [filteredJokes, setFilteredJokes] = useState<LikedJokes | null>(
     null
   );
+  const [searchValue, setSearchValue] = useState<string>('');
   const router = useRouter();
   const theme = useTheme();
 
-  useEffect(() => setFilteredJokes(likedJokes), [likedJokes]);
+  useEffect(() => {
+    likedJokes && setFilteredJokes(filterJokes(likedJokes, searchValue));
+  }, [likedJokes, searchValue]);
 
   const handleClick = (jokeId: string) => {
     router.push(`/?joke=${jokeId}`);
@@ -44,6 +47,12 @@ export const Sidebar = ({
       (joke) => joke.id !== jokeId
     );
     setLikedJokes(updatedJokes);
+  };
+
+  const filterJokes = (jokes: LikedJokes, value: string) => {
+    return jokes!.filter((joke) =>
+      joke.joke.toLowerCase().includes(value.toLowerCase())
+    );
   };
 
   const open: boolean = likedJokes !== null && likedJokes.length > 0;
@@ -70,6 +79,8 @@ export const Sidebar = ({
       <SearchBar
         likedJokes={likedJokes}
         setFilteredJokes={setFilteredJokes}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
       />
       {filteredJokes && filteredJokes.length ? (
         <Stack spacing={1} marginTop='.5rem'>
