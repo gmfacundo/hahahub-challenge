@@ -52,6 +52,6 @@ This project utilizes React Context to manage state across the application, incl
 
 You can view the complete design on Figma:
 
-[HaHaHub Figma Design](https://www.figma.com/design/e33XvmyyMqOwWJsZy2FNWT/HaHaHub?t=BUS93CKRdxOhsocU-7)
+[HaHaHub - Design](https://www.figma.com/design/e33XvmyyMqOwWJsZy2FNWT/HaHaHub?t=BUS93CKRdxOhsocU-7)
 
 Thank you for checking out HaHaHub!
