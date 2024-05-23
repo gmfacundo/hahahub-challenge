@@ -4,8 +4,8 @@ import { Suspense } from 'react';
 import { Container, ThemeProvider } from '@mui/material';
 import { useAppContext } from '@/hooks/useAppContext';
 import { MainContent } from '@/components/MainContent/MainContent';
-import { SavedJokes } from './SavedJokes';
 import theme from '@/theme/theme';
+import { SavedJokes } from './SavedJokes/SavedJokes';
 
 export default function MainPage() {
   const { likedJokes, setLikedJokes, curJokeId } = useAppContext();

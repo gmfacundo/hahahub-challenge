@@ -14,8 +14,8 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
-import { SearchBar } from './SearchBar';
-import { EmptyList } from './EmptyList';
+import { SearchBar } from '../SearchBar';
+import { EmptyList } from '../EmptyList';
 import SwipePuller from './SwipePuller';
 
 const drawerBleeding = 56;

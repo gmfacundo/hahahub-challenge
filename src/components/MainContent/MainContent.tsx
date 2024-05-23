@@ -7,7 +7,7 @@ import JokeCard from '@/components/JokeCard';
 import { JokeHookReturn } from '@/types/HookReturn';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import { Share } from '../Share/Share';
-import { Footer } from '../Footer';
+import { Footer } from '../Footer/Footer';
 
 import './styles.css';
 

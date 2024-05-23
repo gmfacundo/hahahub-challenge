@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { Drawer, Stack, useTheme } from '@mui/material';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
-import { SearchBar } from './SearchBar';
-import { EmptyList } from './EmptyList';
+import { SearchBar } from '../SearchBar';
+import { EmptyList } from '../EmptyList';
 import JokeItemDesktop from './JokeItemDesktop';
 
 export const Sidebar = ({

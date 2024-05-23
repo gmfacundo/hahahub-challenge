@@ -14,8 +14,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { Sidebar } from './Sidebar';
-import SwipeableEdgeDrawer from './SwipeableDrawer';
+import { Sidebar } from './Desktop/Sidebar';
+import SwipeableEdgeDrawer from './Mobile/SwipeableDrawer';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 
 export function SavedJokes({
