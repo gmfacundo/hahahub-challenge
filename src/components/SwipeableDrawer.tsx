@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Global, css } from '@emotion/react';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import { Box, Card, CardContent, Stack, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import {
   LeadingActions,
@@ -16,18 +16,9 @@ import 'react-swipeable-list/dist/styles.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SearchBar } from './SearchBar';
 import { EmptyList } from './EmptyList';
+import SwipePuller from './SwipePuller';
 
 const drawerBleeding = 56;
-
-const Puller = styled('div')(({ theme }) => ({
-  width: 150,
-  height: 6,
-  backgroundColor: theme.palette.primary.dark,
-  borderRadius: 3,
-  position: 'absolute',
-  top: 8,
-  left: 'calc(50% - 75px)',
-}));
 
 export default function SwipeableEdgeDrawer({
   likedJokes,
@@ -130,20 +121,7 @@ export default function SwipeableEdgeDrawer({
         ModalProps={{
           keepMounted: true,
         }}>
-        <Box
-          sx={{
-            backgroundColor: theme.palette.primary.main,
-            position: 'absolute',
-            top: -30,
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            visibility: 'visible',
-            right: 0,
-            left: 0,
-          }}>
-          <Puller />
-          <Box p={2} />
-        </Box>
+        <SwipePuller />
         <Box
           sx={{
             backgroundColor: theme.palette.primary.main,
@@ -168,7 +146,7 @@ export default function SwipeableEdgeDrawer({
                     fullSwipe={false}
                     onSwipeStart={() => {
                       setIsSwiping(true);
-                      setItem(index);
+                      setItem(index + 1);
                     }}
                     onSwipeEnd={() => setIsSwiping(false)}>
                     <Card
