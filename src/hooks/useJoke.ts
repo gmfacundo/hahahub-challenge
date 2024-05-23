@@ -53,7 +53,7 @@ export function useJoke(): JokeHookReturn {
     fetchJokeAndSetState();
 
     setIsLoading(false);
-  }, [jokeId, fetchNewJoke]);
+  }, [jokeId, fetchNewJoke, likedJokes, setCurJokeId, setFetchNewJoke]);
 
   return { joke, isLoading, error };
 }
