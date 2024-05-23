@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import Fade from '@mui/material/Fade';
-import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ClipboardToast } from '../ClipboardToast';
 import { AlertInterface } from '@/interfaces/AlertInterface';
+
 import './styles.css';
 
 function SlideTransition(props: SlideProps) {

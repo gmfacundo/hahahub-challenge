@@ -1,7 +1,4 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
-import { Sidebar } from './Sidebar';
-import SwipeableEdgeDrawer from './SwipeableDrawer';
-import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import {
   DndContext,
   DragEndEvent,
@@ -17,6 +14,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { Sidebar } from './Sidebar';
+import SwipeableEdgeDrawer from './SwipeableDrawer';
+import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 
 export function SavedJokes({
   likedJokes,

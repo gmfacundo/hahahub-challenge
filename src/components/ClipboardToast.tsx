@@ -1,5 +1,5 @@
-import { AlertInterface } from '@/interfaces/AlertInterface';
 import { Alert, Snackbar, useTheme } from '@mui/material';
+import { AlertInterface } from '@/interfaces/AlertInterface';
 
 export function ClipboardToast({
   openAlert,

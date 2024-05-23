@@ -1,9 +1,9 @@
 'use client';
 
+import { Suspense } from 'react';
 import { Container, ThemeProvider } from '@mui/material';
 import { useAppContext } from '@/hooks/useAppContext';
 import { MainContent } from '@/components/MainContent/MainContent';
-import { Suspense } from 'react';
 import { SavedJokes } from './SavedJokes';
 import theme from '@/theme/theme';
 

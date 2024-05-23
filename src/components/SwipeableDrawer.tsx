@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Global, css } from '@emotion/react';
 import { useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
+import { Global, css } from '@emotion/react';
 import {
   LeadingActions,
   SwipeAction,
@@ -13,7 +13,7 @@ import {
   SwipeableListItem,
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import { SearchBar } from './SearchBar';
 import { EmptyList } from './EmptyList';
 import SwipePuller from './SwipePuller';

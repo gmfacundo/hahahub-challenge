@@ -1,5 +1,4 @@
 import { useRouter } from 'next/navigation';
-import ContextInterface from '@/interfaces/ContextInterface';
 import {
   Box,
   IconButton,
@@ -7,11 +6,12 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
+import ContextInterface from '@/interfaces/ContextInterface';
 
 function JokeItemDesktop({
   joke,

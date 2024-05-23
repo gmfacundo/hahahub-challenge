@@ -1,14 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material';
 import Header from '@/components/Header';
-import JokeCard from '@/components/JokeCard';
-import './styles.css';
-import { useEffect, useState } from 'react';
 import { useJoke } from '@/hooks/useJoke';
+import JokeCard from '@/components/JokeCard';
 import { JokeHookReturn } from '@/types/HookReturn';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import { Share } from '../Share/Share';
 import { Footer } from '../Footer';
+
+import './styles.css';
 
 export function MainContent({
   curJokeId,

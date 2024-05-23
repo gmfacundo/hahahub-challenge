@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { LikedJokes } from '@/context/types/Context';
+import { useState } from 'react';
 import {
   Box,
   CircularProgress,
@@ -10,6 +9,7 @@ import {
   useTheme,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { LikedJokes } from '@/context/types/Context';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { useDebouncedCallback } from 'use-debounce';
 

@@ -1,6 +1,6 @@
-import { useAppContext } from '@/hooks/useAppContext';
-import { Box, LinearProgress, Typography, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Box, LinearProgress, Typography, useTheme } from '@mui/material';
+import { useAppContext } from '@/hooks/useAppContext';
 
 export function Countdown() {
   const [seconds, setSeconds] = useState<number>(10);

@@ -1,6 +1,6 @@
-import { useAppContext } from '@/hooks/useAppContext';
 import { Button, useTheme } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { useAppContext } from '@/hooks/useAppContext';
 
 export function NewJokeButton({ path }: { path: URL | null }) {
   const router = useRouter();
