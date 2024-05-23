@@ -56,8 +56,6 @@ You can view the complete design on Figma:
 
 ## Notes
 
-## Notes
-
 In the desktop view, users can drag and reorder jokes as they prefer. Unfortunately, I was unable to replicate this functionality on mobile view due to an incompatibility issue between [dnd-kit](https://docs.dndkit.com/) and [react-swipeable-list](https://github.com/marekrozmus/react-swipeable-list). Therefore, I chose to retain the swipe functionality and omitted draggable cards on mobile, as I believe it provides a better user experience.
 
 Thank you for checking out HaHaHub!
