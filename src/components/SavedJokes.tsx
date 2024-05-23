@@ -2,6 +2,21 @@ import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { Sidebar } from './Sidebar';
 import SwipeableEdgeDrawer from './SwipeableDrawer';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
+import {
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 export function SavedJokes({
   likedJokes,
@@ -13,6 +28,24 @@ export function SavedJokes({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      setLikedJokes((prev) => {
+        const oldIndex = prev!.findIndex((joke) => joke.id === active.id);
+        const newIndex = prev!.findIndex((joke) => joke.id === over.id);
+
+        return arrayMove(prev!, oldIndex, newIndex);
+      });
+    }
+  };
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor)
+  );
+
   const open: boolean = likedJokes !== null && likedJokes.length > 0;
   return (
     <>
@@ -22,9 +55,22 @@ export function SavedJokes({
           setLikedJokes={setLikedJokes}
         />
       ) : (
-        <Box component='nav'>
-          <Sidebar likedJokes={likedJokes} setLikedJokes={setLikedJokes} />
-        </Box>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToVerticalAxis]}>
+          <SortableContext
+            items={likedJokes ? likedJokes : []}
+            strategy={verticalListSortingStrategy}>
+            <Box component='nav'>
+              <Sidebar
+                likedJokes={likedJokes}
+                setLikedJokes={setLikedJokes}
+              />
+            </Box>
+          </SortableContext>
+        </DndContext>
       )}
     </>
   );
