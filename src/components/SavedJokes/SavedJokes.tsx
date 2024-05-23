@@ -13,7 +13,10 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from '@dnd-kit/modifiers';
 import { Sidebar } from './Desktop/Sidebar';
 import SwipeableEdgeDrawer from './Mobile/SwipeableDrawer';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
@@ -59,7 +62,7 @@ export function SavedJokes({
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
-          modifiers={[restrictToVerticalAxis]}>
+          modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
           <SortableContext
             items={likedJokes ? likedJokes : []}
             strategy={verticalListSortingStrategy}>
