@@ -27,15 +27,17 @@ export function SearchBar({
   isMobile?: boolean;
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filter, setFilter] = useState<string>('');
   const theme = useTheme();
 
   const handleChange = (value: string) => {
     setIsLoading(true);
-    setSearchValue(value);
+    setFilter(value);
     debouncedFilter(value);
   };
 
   const debouncedFilter = useDebouncedCallback((value: string) => {
+    setSearchValue(filter);
     setIsLoading(false);
     setFilteredJokes(
       likedJokes!.filter((joke) =>
@@ -50,7 +52,7 @@ export function SearchBar({
         <TextField
           hiddenLabel
           variant='filled'
-          value={searchValue}
+          value={filter}
           fullWidth
           sx={{
             backgroundColor: theme.palette.primary.light,
