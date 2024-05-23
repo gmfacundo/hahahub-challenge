@@ -1,7 +1,9 @@
 import ContextInterface from '@/interfaces/ContextInterface';
 
 export type LikedJokes = ContextInterface[] | null;
-export type SetLikedJokes = (jokes: ContextInterface[]) => void;
+export type SetLikedJokes = React.Dispatch<
+  React.SetStateAction<ContextInterface[] | null>
+>;
 export type SetFetchNewJoke = React.Dispatch<
   React.SetStateAction<boolean>
 >;

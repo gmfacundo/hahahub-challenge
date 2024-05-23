@@ -9,27 +9,23 @@ export const AppContext = createContext<AppContextType | undefined>(
 );
 
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
-  const [likedJokes, setLikedJokesAux] = useState<
-    ContextInterface[] | null
-  >(null);
+  const [likedJokes, setLikedJokes] = useState<ContextInterface[] | null>(
+    null
+  );
   const [curJokeId, setCurJokeId] = useState<string>('');
   const [fetchNewJoke, setFetchNewJoke] = useState<boolean>(true);
-
-  const setLikedJokes = (
-    jokes?: ContextInterface[],
-    curJokeId?: string
-  ) => {
-    jokes && setLikedJokesAux(jokes);
-    curJokeId && setCurJokeId(curJokeId);
-    localStorage.setItem('jokes', JSON.stringify(jokes));
-  };
 
   useEffect(() => {
     const storedJokes = localStorage.getItem('jokes');
     if (storedJokes) {
-      setLikedJokesAux(JSON.parse(storedJokes));
+      setLikedJokes(JSON.parse(storedJokes));
     }
   }, []);
+
+  useEffect(
+    () => localStorage.setItem('jokes', JSON.stringify(likedJokes)),
+    [likedJokes]
+  );
 
   return (
     <AppContext.Provider
