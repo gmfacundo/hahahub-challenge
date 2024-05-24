@@ -8,8 +8,8 @@ import theme from '@/theme/theme';
 import { SavedJokes } from './SavedJokes/SavedJokes';
 
 export default function MainPage() {
-  const { likedJokes, setLikedJokes, curJokeId } = useAppContext();
-
+  const { likedJokes, setLikedJokes, curJoke } = useAppContext();
+  console.log('render');
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -27,7 +27,7 @@ export default function MainPage() {
           <MainContent
             likedJokes={likedJokes}
             setLikedJokes={setLikedJokes}
-            curJokeId={curJokeId}
+            curJoke={curJoke}
           />
         </Suspense>
         <SavedJokes

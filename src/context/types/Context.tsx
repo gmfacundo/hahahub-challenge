@@ -7,12 +7,16 @@ export type SetLikedJokes = React.Dispatch<
 export type SetFetchNewJoke = React.Dispatch<
   React.SetStateAction<boolean>
 >;
+export type CurJoke = JokeInterface | null;
+export type SetCurJoke = React.Dispatch<
+  React.SetStateAction<JokeInterface | null>
+>;
 
 export type AppContextType = {
   likedJokes: LikedJokes;
   setLikedJokes: SetLikedJokes;
-  curJokeId: string;
-  setCurJokeId: (curJokeId: string) => void;
+  curJoke: CurJoke;
+  setCurJoke: SetCurJoke;
   fetchNewJoke: boolean;
   setFetchNewJoke: SetFetchNewJoke;
 };

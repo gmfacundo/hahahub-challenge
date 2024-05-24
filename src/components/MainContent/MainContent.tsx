@@ -5,18 +5,22 @@ import Header from '@/components/Header';
 import { useJoke } from '@/hooks/useJoke';
 import JokeCard from '@/components/JokeCard';
 import { JokeHookReturn } from '@/types/HookReturn';
-import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
+import {
+  CurJoke,
+  LikedJokes,
+  SetLikedJokes,
+} from '@/context/types/Context';
 import { Share } from '../Share/Share';
 import { Footer } from '../Footer/Footer';
 
 import './styles.css';
 
 export function MainContent({
-  curJokeId,
+  curJoke,
   likedJokes,
   setLikedJokes,
 }: {
-  curJokeId: string;
+  curJoke: CurJoke;
   likedJokes: LikedJokes;
   setLikedJokes: SetLikedJokes;
 }) {
@@ -25,7 +29,7 @@ export function MainContent({
 
   useEffect(() => {
     if (window !== undefined) setPath(new URL(window.location.href));
-  }, [curJokeId]);
+  }, [curJoke]);
 
   const theme = useTheme();
 
@@ -64,7 +68,7 @@ export function MainContent({
         likedJokes={likedJokes}
         setLikedJokes={setLikedJokes}
       />
-      {showShare ? <Share path={path} curJokeId={curJokeId} /> : null}
+      {showShare ? <Share path={path} curJoke={curJoke} /> : null}
       <Footer path={path} isLoading={isLoading} />
     </Box>
   );

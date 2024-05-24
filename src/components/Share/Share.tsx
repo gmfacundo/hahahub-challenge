@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import { ClipboardToast } from '../ClipboardToast';
 import { AlertInterface } from '@/interfaces/AlertInterface';
+import { CurJoke } from '@/context/types/Context';
 
 import './styles.css';
 
@@ -14,10 +15,10 @@ function SlideTransition(props: SlideProps) {
 
 export function Share({
   path,
-  curJokeId,
+  curJoke,
 }: {
   path: URL | null;
-  curJokeId: string;
+  curJoke: CurJoke;
 }) {
   const [openAlert, setOpenAlert] = useState<AlertInterface>({
     open: false,
@@ -36,7 +37,7 @@ export function Share({
     ) =>
     () => {
       const basePath = path && path.origin;
-      const url = `${basePath}/?joke=${curJokeId}`;
+      const url = `${basePath}/?joke=${curJoke!.id}`;
       navigator.clipboard.writeText(url);
 
       setOpenAlert({ ...openAlert, open: true, Transition });

@@ -12,7 +12,7 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
   const [likedJokes, setLikedJokes] = useState<JokeInterface[] | null>(
     null
   );
-  const [curJokeId, setCurJokeId] = useState<string>('');
+  const [curJoke, setCurJoke] = useState<JokeInterface | null>(null);
   const [fetchNewJoke, setFetchNewJoke] = useState<boolean>(true);
 
   useEffect(() => {
@@ -32,8 +32,8 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
       value={{
         likedJokes,
         setLikedJokes,
-        curJokeId,
-        setCurJokeId,
+        curJoke,
+        setCurJoke,
         fetchNewJoke,
         setFetchNewJoke,
       }}>

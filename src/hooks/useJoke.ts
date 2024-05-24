@@ -20,25 +20,27 @@ export function useJoke(): JokeHookReturn {
   const [joke, setJoke] = useState<Joke>(initialJoke);
   const [isLoading, setIsLoading] = useState<Loading>(true);
   const [error, setError] = useState<ApiError | null>(null);
-  const { likedJokes, setCurJokeId, fetchNewJoke, setFetchNewJoke } =
+  const { likedJokes, setCurJoke, fetchNewJoke, setFetchNewJoke } =
     useAppContext();
   const jokeId: string | null | undefined = useSearchParams()?.get('joke');
 
   useEffect(() => {
     const fetchJokeAndSetState = async () => {
-      let joke: Joke | null;
+      let fetchedJoke: Joke | null;
       if (isLiked(likedJokes, jokeId)) {
-        joke = likedJokes!.find((joke) => joke.id === jokeId) as Joke;
-        setJoke(joke);
-        setCurJokeId(joke.id);
+        fetchedJoke = likedJokes!.find(
+          (joke) => joke.id === jokeId
+        ) as Joke;
+        setJoke(fetchedJoke);
+        setCurJoke({ ...fetchedJoke });
         setIsLoading(false);
       } else if (fetchNewJoke) {
         try {
-          joke = await fetchJoke(jokeId);
-          if (joke !== null && joke.status === 404)
+          fetchedJoke = await fetchJoke(jokeId);
+          if (fetchedJoke !== null && fetchedJoke.status === 404)
             throw new Error('Cannot find the joke 😟');
-          setJoke(joke || initialJoke);
-          setCurJokeId(joke!.id);
+          setJoke(fetchedJoke || initialJoke);
+          fetchedJoke && setCurJoke(fetchedJoke);
           setFetchNewJoke(false);
         } catch (error) {
           setError(error as ApiError);
@@ -53,7 +55,7 @@ export function useJoke(): JokeHookReturn {
     fetchJokeAndSetState();
 
     setIsLoading(false);
-  }, [jokeId, fetchNewJoke, likedJokes, setCurJokeId, setFetchNewJoke]);
+  }, [jokeId, fetchNewJoke, likedJokes, setCurJoke, setFetchNewJoke]);
 
   return { joke, isLoading, error };
 }
