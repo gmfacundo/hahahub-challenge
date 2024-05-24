@@ -13,7 +13,7 @@ import {
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 import { isLiked } from '@/utils/helpers';
-import ContextInterface from '@/interfaces/ContextInterface';
+import JokeInterface from '@/interfaces/JokeInterface';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
 import ApiResponse from '@/interfaces/ResponseInterface';
 import ApiError from '@/interfaces/ErrorInterface';
@@ -34,7 +34,7 @@ export default function JokeCard({
   const theme = useTheme();
 
   const handleLike = () => {
-    let updatedJokes: ContextInterface[];
+    let updatedJokes: JokeInterface[];
 
     if (!likedJokes) {
       updatedJokes = [joke];

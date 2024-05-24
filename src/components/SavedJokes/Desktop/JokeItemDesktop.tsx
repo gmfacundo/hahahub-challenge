@@ -11,14 +11,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { LikedJokes, SetLikedJokes } from '@/context/types/Context';
-import ContextInterface from '@/interfaces/ContextInterface';
+import JokeInterface from '@/interfaces/JokeInterface';
 
 function JokeItemDesktop({
   joke,
   likedJokes,
   setLikedJokes,
 }: {
-  joke: ContextInterface;
+  joke: JokeInterface;
   likedJokes: LikedJokes;
   setLikedJokes: SetLikedJokes;
 }) {
@@ -34,8 +34,8 @@ function JokeItemDesktop({
     jokeId: string
   ) => {
     e.stopPropagation();
-    const updatedJokes: ContextInterface[] = likedJokes!.filter(
-      (joke: ContextInterface) => joke.id !== jokeId
+    const updatedJokes: JokeInterface[] = likedJokes!.filter(
+      (joke: JokeInterface) => joke.id !== jokeId
     );
     setLikedJokes(updatedJokes);
   };

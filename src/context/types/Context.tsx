@@ -1,8 +1,8 @@
-import ContextInterface from '@/interfaces/ContextInterface';
+import JokeInterface from '@/interfaces/JokeInterface';
 
-export type LikedJokes = ContextInterface[] | null;
+export type LikedJokes = JokeInterface[] | null;
 export type SetLikedJokes = React.Dispatch<
-  React.SetStateAction<ContextInterface[] | null>
+  React.SetStateAction<JokeInterface[] | null>
 >;
 export type SetFetchNewJoke = React.Dispatch<
   React.SetStateAction<boolean>

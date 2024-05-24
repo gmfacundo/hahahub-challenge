@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import ContextInterface from '@/interfaces/ContextInterface';
+import JokeInterface from '@/interfaces/JokeInterface';
 import { AppContextType } from './types/Context';
 
 export const AppContext = createContext<AppContextType | undefined>(
@@ -9,7 +9,7 @@ export const AppContext = createContext<AppContextType | undefined>(
 );
 
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
-  const [likedJokes, setLikedJokes] = useState<ContextInterface[] | null>(
+  const [likedJokes, setLikedJokes] = useState<JokeInterface[] | null>(
     null
   );
   const [curJokeId, setCurJokeId] = useState<string>('');
