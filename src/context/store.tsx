@@ -34,7 +34,9 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!initialRender.current) {
-      localStorage.setItem('jokes', JSON.stringify(likedJokes));
+      likedJokes?.length
+        ? localStorage.setItem('jokes', JSON.stringify(likedJokes))
+        : localStorage.removeItem('jokes');
     }
   }, [likedJokes]);
 
