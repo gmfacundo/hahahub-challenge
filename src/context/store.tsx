@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useState, useEffect, ReactNode } from 'react';
+import {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useRef,
+} from 'react';
 import JokeInterface from '@/interfaces/JokeInterface';
 import { AppContextType } from './types/Context';
 
@@ -14,18 +20,23 @@ export const AppWrapper = ({ children }: { children: ReactNode }) => {
   );
   const [curJoke, setCurJoke] = useState<JokeInterface | null>(null);
   const [fetchNewJoke, setFetchNewJoke] = useState<boolean>(true);
+  const initialRender = useRef(true);
 
   useEffect(() => {
-    const storedJokes = localStorage.getItem('jokes');
-    if (storedJokes) {
-      setLikedJokes(JSON.parse(storedJokes));
+    if (initialRender.current) {
+      const storedJokes = localStorage.getItem('jokes');
+      if (storedJokes) {
+        setLikedJokes(JSON.parse(storedJokes));
+      }
+      initialRender.current = false;
     }
   }, []);
 
-  useEffect(
-    () => localStorage.setItem('jokes', JSON.stringify(likedJokes)),
-    [likedJokes]
-  );
+  useEffect(() => {
+    if (!initialRender.current) {
+      localStorage.setItem('jokes', JSON.stringify(likedJokes));
+    }
+  }, [likedJokes]);
 
   return (
     <AppContext.Provider
